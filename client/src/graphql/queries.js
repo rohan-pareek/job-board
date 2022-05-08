@@ -17,6 +17,11 @@ export function getJobs() {
 
     return request(GRAPHQL_URL, query)
     .then(data=>data)
+    .catch(error => {
+        return {
+            error
+        }
+    });
 }
 
 export function getJobById(jobId) {
@@ -36,6 +41,11 @@ export function getJobById(jobId) {
 
     return request(GRAPHQL_URL, query)
     .then(data=>data)
+    .catch(error => {
+        return {
+            error
+        }
+    });
 }
 
 export function getCompanyById(companyId) {
@@ -46,7 +56,11 @@ export function getCompanyById(companyId) {
             company(id: $id) {
                 id,
                 name,
-                description
+                description,
+                jobs {
+                    id,
+                    title
+                }
             }
         }
     `;
@@ -55,4 +69,9 @@ export function getCompanyById(companyId) {
 
     return request(GRAPHQL_URL, query, variables)
     .then(data=>data)
+    .catch(error => {
+        return {
+            error
+        }
+    });
 }

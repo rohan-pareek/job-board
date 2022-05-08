@@ -1,21 +1,30 @@
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getJobById } from '../graphql/queries';
 
 function JobDetail() {
   const { jobId } = useParams();
 
   const [job, setJob] = useState();
+  const [error, setError] = useState('');
 
-  const getJob = async () => {
+  const getJob = useCallback(async () => {
     const data = await getJobById(jobId);
-    setJob(data.job);
-  }
+    if (data.error) {
+      setError(data.error);
+    } else {
+      setJob(data.job);
+    }
+  }, [jobId])
 
   useEffect(() => {
     getJob();
-  }, []);
+  }, [getJob]);
+
+  if (error) {
+    return <p>{error.message}</p>
+  }
 
   return (
     <>
