@@ -39,9 +39,11 @@ export function getJobById(jobId) {
 }
 
 export function getCompanyById(companyId) {
+
+    // $id is a variable
     const query = gql`
-        {
-            company(id: "${companyId}") {
+        query CompanyQuery($id: ID!) {
+            company(id: $id) {
                 id,
                 name,
                 description
@@ -49,6 +51,8 @@ export function getCompanyById(companyId) {
         }
     `;
 
-    return request(GRAPHQL_URL, query)
+    const variables = {id: companyId};
+
+    return request(GRAPHQL_URL, query, variables)
     .then(data=>data)
 }
