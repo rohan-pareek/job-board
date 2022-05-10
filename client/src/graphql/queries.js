@@ -75,3 +75,34 @@ export function getCompanyById(companyId) {
         }
     });
 }
+
+export function createJobWithInput({title, description, companyId}) {
+
+    // $id is a variable
+    const query = gql`
+        mutation CreateJobWithInput($input: CreateJobInput!) {
+            job: createJobWithInput(input: $input) {
+                id,
+                title,
+                company {
+                    id,
+                    name
+                }
+            }
+        }
+    `;
+
+    const variables = {input: {
+        title,
+        description,
+        companyId
+    }};
+
+    return request(GRAPHQL_URL, query, variables)
+    .then(data=>data)
+    .catch(error => {
+        return {
+            error
+        }
+    });
+}
