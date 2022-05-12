@@ -8,8 +8,18 @@ export const resolvers = {
     },
 
     Mutation: {
-        createJob: (_root, args) => Job.create({ title: args.title, companyId: args.companyId, description: args.description }),
-        createJobWithInput: (_root, args) => Job.create(args.input)
+        createJob: (_root, args, context) => {
+            if(!context.auth) {
+                throw new Error("Unauthorized");
+            }
+            return Job.create({ title: args.title, companyId: args.companyId, description: args.description });
+        },
+        createJobWithInput: (_root, args, context) => {
+            if(!context.auth) {
+                throw new Error("Unauthorized");
+            }
+            return Job.create(args.input);
+        }
     },
 
     Job: {

@@ -30,7 +30,13 @@ app.post('/login', async (req, res) => {
 
 const typeDefs = await readFile('./schema.graphql', 'utf-8');
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
+const context = ({req}) => { // context function can have request, response object
+  return {
+    auth: req.auth
+  }
+}
+
+const apolloServer = new ApolloServer({ typeDefs, resolvers, context });
 
 await apolloServer.start();
 

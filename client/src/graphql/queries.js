@@ -1,4 +1,5 @@
 import { request, gql } from 'graphql-request';
+import { getAccessToken } from '../auth';
 
 const GRAPHQL_URL = 'http://localhost:9000/graphql';
 
@@ -98,7 +99,11 @@ export function createJobWithInput({title, description, companyId}) {
         companyId
     }};
 
-    return request(GRAPHQL_URL, query, variables)
+    const headers = {
+        'Authorization': 'Bearer ' + getAccessToken()
+    }
+
+    return request(GRAPHQL_URL, query, variables, headers)
     .then(data=>data)
     .catch(error => {
         return {
