@@ -16,5 +16,11 @@
     "companyId": "wvdB54Gqbdp_NZTXK9Tue",
     "title": "Full-Stack Developer",
     "description": "We are looking for a Full-Stack Developer familiar with Node.js, Express, and React."
+  },
+  {
+    "id": "Z2Nl3Lf83tAUFIhJK7BtT",
+    "title": "created from apollo client",
+    "description": "created from apollo client - desc",
+    "companyId": "pVbRRBQtMVw6lUAkj1k43"
   }
 ]
