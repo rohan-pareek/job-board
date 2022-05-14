@@ -14,7 +14,7 @@ const JOB_FRAGMENT = gql`
     }
 `;
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
     uri: GRAPHQL_URL,
     cache: new InMemoryCache(),
     defaultOptions: { // defaultOptions can be used if all queries or mutations needs to be configured at once (globally)
